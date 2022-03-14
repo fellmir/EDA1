@@ -1,0 +1,77 @@
+-------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Usuario\Documents\0trabWID\4logs\1_first_step.log
+  log type:  text
+ opened on:   3 Nov 2020, 13:36:46
+
+. 
+. // Install WID extension - no dependencies
+. ssc install wid
+checking wid consistency and verifying not already installed...
+all files already exist and are up to date.
+
+. 
+. // Gather initial data
+. wid, indicator(spllin spkkin) perc(p0p50 p90p100) areas(US) ages(992) pop(j) years(1980/2014) metadata clear
+
+* Get variables associated to your selection... DONE
+(found 2 variables for 1 area, 2 percentiles, 1 age category, 1 population category)
+
+* Downloading the data
+
+| 0% ---+--- 20% ---+--- 40% ---+--- 60% ---+--- 80% ---+--- 100% |
+===================================================================
+
+* Download the metadata... DONE
+
+. 
+. // Save to source directory
+. save "0trabWID\1source\1_wid_base_data", replace
+(note: file 0trabWID\1source\1_wid_base_data.dta not found)
+file 0trabWID\1source\1_wid_base_data.dta saved
+
+. 
+. // Describe data
+. des
+
+Contains data from 0trabWID\1source\1_wid_base_data.dta
+  obs:           140                          
+ vars:            23                          3 Nov 2020 13:36
+-------------------------------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------------------------------
+country         str2    %9s                   
+variable        str10   %10s                  
+percentile      str7    %9s                   
+year            int     %8.0g                 
+value           double  %10.0g                
+age             str3    %9s                   
+pop             str1    %9s                   
+countryname     str3    %9s                   
+shortname       str55   %55s                  
+simpledes       str510  %510s                 
+technicaldes    str348  %348s                 
+shorttype       str5    %9s                   
+longtype        str349  %349s                 
+shortpop        str18   %18s                  
+longpop         str107  %107s                 
+shortage        str6    %9s                   
+longage         str55   %55s                  
+unit            str5    %9s                   
+unitlabel       str1    %9s                   
+source          str342  %342s                 
+method          str223  %223s                 
+data_quality    str1    %9s                   
+imputation      str1    %9s                   
+-------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: country  variable  percentile  year
+
+. 
+. // Close the log
+. log close
+      name:  <unnamed>
+       log:  C:\Users\Usuario\Documents\0trabWID\4logs\1_first_step.log
+  log type:  text
+ closed on:   3 Nov 2020, 13:36:54
+-------------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,85 @@
+ use "C:\Users\Usuario\Documents\test\0trabWID\2data\2_USFR_income_wealth.dta" 
+
+. egen id = group (country variable percentile year value)
+
+. reshape wide value, i(id) j(variable) string
+(note: j = shweal992j spkkin992j spllin992j)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                      420   ->     420
+Number of variables                  24   ->      25
+j variable (3 values)          variable   ->   (dropped)
+xij variables:
+                                  value   ->   valueshweal992j valuespkkin992j valuespllin992j
+-----------------------------------------------------------------------------
+
+. br
+
+. use "C:\Users\Usuario\Documents\test\0trabWID\2data\2_USFR_income_wealth.dta", clear
+
+. egen id = group(country year percentile)
+
+. reshape wide value, i(id) j(variable) string
+(note: j = shweal992j spkkin992j spllin992j)
+variable shortname not constant within id
+variable simpledes not constant within id
+variable technicaldes not constant within id
+variable source not constant within id
+variable method not constant within id
+    Your data are currently long.  You are performing a reshape wide.  You typed something like
+
+        . reshape wide a b, i(id) j(variable)
+
+    There are variables other than a, b, id, variable in your data.  They must be constant within id because that is the only way
+    they can fit into wide data without loss of information.
+
+    The variable or variables listed above are not constant within id.  Perhaps the values are in error.  Type reshape error for a
+    list of the problem observations.
+
+    Either that, or the values vary because they should vary, in which case you must either add the variables to the list of xij
+    variables to be reshaped, or drop them.
+r(9);
+
+. br
+
+. drop age pop countryname shortname simpledes technicaldes shorttype longtype shortpop longpop shortage longage unit unitlabel sourc
+> e method data_quality imputation
+
+. reshape wide value, i(id) j(variable) string
+(note: j = shweal992j spkkin992j spllin992j)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                      420   ->     140
+Number of variables                   6   ->       7
+j variable (3 values)          variable   ->   (dropped)
+xij variables:
+                                  value   ->   valueshweal992j valuespkkin992j valuespllin992j
+-----------------------------------------------------------------------------
+
+. br
+
+. order country year percentile valuespllin992j valuespkkin992j valueshweal992j id
+
+. br
+
+. label variable year "Year of observation"
+
+. label variable percentile "Income share percentile within the nation"
+
+. rename valuespllin992j "w_income"
+"w_income invalid name
+r(198);
+
+. rename valuespllin992j w_income
+
+. rename valuespkkin992j k_income
+
+. rename valueshweal992j net_wealth
+
+. label variable w_income "Work income"
+
+. label variable k_income "Capital income"
+
+. label variable net_wealth "Net personal wealth"

@@ -1,0 +1,206 @@
+-------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Usuario\Documents\0trabWID\4logs\3_complex_USFR_income_wealth.log
+  log type:  text
+ opened on:   3 Nov 2020, 13:44:30
+
+. wid, indicator(spllin spkkin) perc(p0p50 p90p100) areas(FR) ages(992) pop(j) years(1980/2014) metadata clear
+
+* Get variables associated to your selection... DONE
+(found 2 variables for 1 area, 2 percentiles, 1 age category, 1 population category)
+
+* Downloading the data
+
+| 0% ---+--- 20% ---+--- 40% ---+--- 60% ---+--- 80% ---+--- 100% |
+===================================================================
+
+* Download the metadata... DONE
+
+. des
+
+Contains data from C:\Users\Usuario\AppData\Local\Temp\ST_405c_000008.tmp
+  obs:           140                          
+ vars:            23                          3 Nov 2020 13:45
+-------------------------------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------------------------------
+country         str2    %9s                   
+variable        str10   %10s                  
+percentile      str7    %9s                   
+year            int     %8.0g                 
+value           double  %10.0g                
+age             str3    %9s                   
+pop             str1    %9s                   
+countryname     str6    %9s                   
+shortname       str55   %55s                  
+simpledes       str510  %510s                 
+technicaldes    str348  %348s                 
+shorttype       str5    %9s                   
+longtype        str349  %349s                 
+shortpop        str18   %18s                  
+longpop         str107  %107s                 
+shortage        str6    %9s                   
+longage         str55   %55s                  
+unit            str5    %9s                   
+unitlabel       str1    %9s                   
+source          str375  %375s                 
+method          str1    %9s                   
+data_quality    str1    %9s                   
+imputation      str1    %9s                   
+-------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: country  variable  percentile  year
+     Note: Dataset has changed since last saved.
+
+. save "2data\1auxiliarydata\1_wid_FR_income", replace
+(note: file 2data\1auxiliarydata\1_wid_FR_income.dta not found)
+file 2data\1auxiliarydata\1_wid_FR_income.dta saved
+
+. append using "1source\1_wid_base_data"
+(note: variable method was str1, now str223 to accommodate using data's values)
+
+. des
+
+Contains data from 2data\1auxiliarydata\1_wid_FR_income.dta
+  obs:           280                          
+ vars:            23                          3 Nov 2020 13:45
+-------------------------------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------------------------------
+country         str2    %9s                   
+variable        str10   %10s                  
+percentile      str7    %9s                   
+year            int     %8.0g                 
+value           double  %10.0g                
+age             str3    %9s                   
+pop             str1    %9s                   
+countryname     str6    %9s                   
+shortname       str55   %55s                  
+simpledes       str510  %510s                 
+technicaldes    str348  %348s                 
+shorttype       str5    %9s                   
+longtype        str349  %349s                 
+shortpop        str18   %18s                  
+longpop         str107  %107s                 
+shortage        str6    %9s                   
+longage         str55   %55s                  
+unit            str5    %9s                   
+unitlabel       str1    %9s                   
+source          str375  %375s                 
+method          str223  %223s                 
+data_quality    str1    %9s                   
+imputation      str1    %9s                   
+-------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: 
+     Note: Dataset has changed since last saved.
+
+. save "2data\1auxiliarydata\1_wid_USFR_income", replace
+(note: file 2data\1auxiliarydata\1_wid_USFR_income.dta not found)
+file 2data\1auxiliarydata\1_wid_USFR_income.dta saved
+
+. wid, indicator(shweal) perc(p0p50 p90p100) areas(US FR) ages(992) pop(j) years(1980/2014) metadata clear
+
+* Get variables associated to your selection... DONE
+(found 1 variable for 2 areas, 2 percentiles, 1 age category, 1 population category)
+
+* Downloading the data
+
+| 0% ---+--- 20% ---+--- 40% ---+--- 60% ---+--- 80% ---+--- 100% |
+===================================================================
+
+* Download the metadata... DONE
+
+. des
+
+Contains data from C:\Users\Usuario\AppData\Local\Temp\ST_405c_000008.tmp
+  obs:           140                          
+ vars:            23                          3 Nov 2020 13:47
+-------------------------------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------------------------------
+country         str2    %9s                   
+variable        str10   %10s                  
+percentile      str7    %9s                   
+year            int     %8.0g                 
+value           double  %10.0g                
+age             str3    %9s                   
+pop             str1    %9s                   
+countryname     str6    %9s                   
+shortname       str19   %19s                  
+simpledes       str439  %439s                 
+technicaldes    str97   %97s                  
+shorttype       str5    %9s                   
+longtype        str349  %349s                 
+shortpop        str18   %18s                  
+longpop         str107  %107s                 
+shortage        str6    %9s                   
+longage         str55   %55s                  
+unit            str5    %9s                   
+unitlabel       str1    %9s                   
+source          str387  %387s                 
+method          str1    %9s                   
+data_quality    str1    %9s                   
+imputation      str1    %9s                   
+-------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: country  variable  percentile  year
+     Note: Dataset has changed since last saved.
+
+. append using "2data\1auxiliarydata\1_wid_USFR_income"
+(note: variable shortname was str19, now str55 to accommodate using data's values)
+(note: variable simpledes was str439, now str510 to accommodate using data's values)
+(note: variable technicaldes was str97, now str348 to accommodate using data's values)
+(note: variable method was str1, now str223 to accommodate using data's values)
+
+. des
+
+Contains data from C:\Users\Usuario\AppData\Local\Temp\ST_405c_000008.tmp
+  obs:           420                          
+ vars:            23                          3 Nov 2020 13:47
+-------------------------------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------------------------------
+country         str2    %9s                   
+variable        str10   %10s                  
+percentile      str7    %9s                   
+year            int     %8.0g                 
+value           double  %10.0g                
+age             str3    %9s                   
+pop             str1    %9s                   
+countryname     str6    %9s                   
+shortname       str55   %55s                  
+simpledes       str510  %510s                 
+technicaldes    str348  %348s                 
+shorttype       str5    %9s                   
+longtype        str349  %349s                 
+shortpop        str18   %18s                  
+longpop         str107  %107s                 
+shortage        str6    %9s                   
+longage         str55   %55s                  
+unit            str5    %9s                   
+unitlabel       str1    %9s                   
+source          str387  %387s                 
+method          str223  %223s                 
+data_quality    str1    %9s                   
+imputation      str1    %9s                   
+-------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: 
+     Note: Dataset has changed since last saved.
+
+. save "1auxiliarydata\2_ex_USFR_income_wealth", replace
+(note: file 1auxiliarydata\2_ex_USFR_income_wealth.dta not found)
+file 1auxiliarydata\2_ex_USFR_income_wealth.dta could not be opened
+r(603);
+
+. save "2data\1auxiliarydata\2_ex_USFR_income_wealth", replace
+(note: file 2data\1auxiliarydata\2_ex_USFR_income_wealth.dta not found)
+file 2data\1auxiliarydata\2_ex_USFR_income_wealth.dta saved
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\Usuario\Documents\0trabWID\4logs\3_complex_USFR_income_wealth.log
+  log type:  text
+ closed on:   3 Nov 2020, 13:50:05
+-------------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,24 @@
+countryname
+
+countryname |      Freq.     Percent        Cum.
+------------+-----------------------------------
+     France |        210       50.00       50.00
+        USA |        210       50.00      100.00
+
+
+Net personal wealth
+Pre-tax capital income
+Pre-tax labor income
+
+Net personal wealth = Personal non-financial assets + Personal financial assets - Personal debt
+Pre-tax capital income = Housing asset income + Equity asset income + Interest income + Pensions and social insurance income (capital share) - Interest payments
+Pre-tax labor income = Compensation of employees + Labor component of net mixed income + Pensions and social insurance income (labor share)
+
+The base unit is the individual (rather than the household) but resources are split equally within couples.
+
+The population is comprised of individuals over age 20.
+
+[URL][URL_LINK]http://wid.world/document/b-garbinti-j-goupille-and-t-piketty-wealth-concentration-in-france-1800-2014-methods-estimates-and-simulations-2016/[/URL_LINK][URL_TEXT]Garbinti, Goupille-Lebret and Piketty (2020), Accounting for Wealth Inequality Dynamics: Methods, Estimates and Simulations for France (1800-2014), Journal of the European Economic Association[/URL_TEXT][/URL]
+
+[URL][URL_LINK]http://wid.world/document/t-piketty-e-saez-g-zucman-data-appendix-to-distributional-national-accounts-methods-and-estimates-for-the-united-states-2016/[/URL_LINK][URL_TEXT]Piketty, Thomas; Saez, Emmanuel and Zucman, Gabriel (2016). Distributional National Accounts: Methods and Estimates for the United States.[/URL_TEXT][/URL]
+

@@ -1,0 +1,21 @@
+Relatório técnico:
+
+- Capa
+- Índice
+- Introdução
+- Justificação da base de dados (escolha)
+- Descrição da base de dados (metodologia?)
+- Documentação inicial da base de dados (coleta)
+- Depuração da base de dados
+- Alterações na base de dados (variáveis descartadas, adicionadas etc.)
+- Base de dados final
+- Descrição de cada variável
+- Conclusão
+- Bibliografia
+
+Arquivos extras:
+
+- Arquivo de dados inicial (ver melhores formatos para se trabalhar)
+- Do-files e log final das sessões (ver como obter)
+- Base de dados final (.dta)
+- Análise descritiva das variáveis (.dta e no relatório técnico)

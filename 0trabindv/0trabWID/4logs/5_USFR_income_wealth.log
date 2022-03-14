@@ -1,0 +1,248 @@
+-------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Usuario\Documents\0trabWID\4logs\5_USFR_income_wealth.log
+  log type:  text
+ opened on:   4 Nov 2020, 13:18:49
+
+. 
+. // Install WID extension - no dependencies
+. ssc install wid
+checking wid consistency and verifying not already installed...
+all files already exist and are up to date.
+
+. 
+. // Gather needed data
+. wid, indicator(spllin spkkin shweal) perc(p0p50 p90p100) areas(US FR) ages(992) pop(j) years(1980/2014) metadata clear
+
+* Get variables associated to your selection... DONE
+(found 3 variables for 2 areas, 2 percentiles, 1 age category, 1 population category)
+
+* Downloading the data
+
+| 0% ---+--- 20% ---+--- 40% ---+--- 60% ---+--- 80% ---+--- 100% |
+===================================================================
+
+* Download the metadata... DONE
+
+. 
+. // Drop unnecessary variables
+. drop age pop countryname shortname simpledes technicaldes shorttype longtype shortpop longpop shortage longage unit unitlabel sourc
+> e method data_quality imputation
+
+. 
+. // Generate "id" variable for "reshape" process
+. egen id = group(country year percentile)
+
+. 
+. // Do the "reshape", change shape of data from long to wide with variable "variable" as the column j
+. reshape wide value, i(id) j(variable) string
+(note: j = shweal992j spkkin992j spllin992j)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                      420   ->     140
+Number of variables                   6   ->       7
+j variable (3 values)          variable   ->   (dropped)
+xij variables:
+                                  value   ->   valueshweal992j valuespkkin992j valuespllin992j
+-----------------------------------------------------------------------------
+
+. 
+. // Order the variables
+. order country year percentile valuespllin992j valuespkkin992j valueshweal992j id
+
+. 
+. // Rename new variables
+. rename valuespllin992j l_income
+
+. rename valuespkkin992j k_income
+
+. rename valueshweal992j net_wealth
+
+. 
+. // Insert label variables
+. label variable year "Year of observation"
+
+. label variable l_income "Pre-tax labor income"
+
+. label variable k_income "Pre-tax capital income"
+
+. label variable net_wealth "Net personal wealth"
+
+. 
+. // Insert notes
+. note l_income: "Pre-tax labor income = Compensation of employees + Labor component of net mixed income + Pensions and social insura
+> nce income (labor share)"
+
+. note k_income: "Pre-tax capital income = Housing asset income + Equity asset income + Interest income + Pensions and social insuran
+> ce income (capital share) - Interest payments"
+
+. note net_wealth: "Net personal wealth = Personal non-financial assets + Personal financial assets - Personal debt"
+
+. 
+. // Notes for the data
+. notes: "The base unit is the individual (rather than the household) but resources are split equally within couples."
+
+. notes: "The population is comprised of individuals over age 20."
+
+. note: "Changed on `c(current_date)'"
+
+. 
+. // Save current state of affairs
+. save "0trabWID\2data\1auxiliarydata\3_USFR_income_wealth_placeholder", replace
+file 0trabWID\2data\1auxiliarydata\3_USFR_income_wealth_placeholder.dta saved
+
+. 
+. // Get the ISO country codes
+. preserve
+
+. import delimited using "https://gist.githubusercontent.com/tadast/8827699/raw/3cd639fa34eec5067080a61c69e3ae25e3076abb/countries_co
+> des_and_coordinates.csv", varname(1) stripquotes(yes) clear
+(6 vars, 256 obs)
+
+. rename country geo
+
+. gen country=strtrim(alpha2code)
+
+. rename numericcode country_num
+
+. keep country country_num
+
+. duplicates drop
+
+Duplicates in terms of all variables
+
+(12 observations deleted)
+
+. save "0trabWID\2data\1auxiliarydata\3_hlp_country_codes", replace
+file 0trabWID\2data\1auxiliarydata\3_hlp_country_codes.dta saved
+
+. restore
+
+. 
+. // Merge the country code data with the current dataset
+. merge m:1 country using "0trabWID\2data\1auxiliarydata\3_hlp_country_codes.dta", keepusing(country_num)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           242
+        from master                         0  (_merge==1)
+        from using                        242  (_merge==2)
+
+    matched                               140  (_merge==3)
+    -----------------------------------------
+
+. 
+. // Drop useless values
+. drop if _m==2
+(242 observations deleted)
+
+. 
+. // Install LABUTIL package extension - no dependencies
+. ssc install labutil
+checking labutil consistency and verifying not already installed...
+all files already exist and are up to date.
+
+. 
+. // Run labmask and numlabel to make country variable a numeric value
+. labmask country_num, values(country)
+
+. numlabel country_num, add
+
+. 
+. // Drop more useless variables, rename new variable with old name
+. drop country id _merge
+
+. rename country_num country
+
+. 
+. // Add label variable, note, re-order
+. label variable country "Country of observation"
+
+. note country: "Number = ISO 3166-1 numeric code"
+
+. order country year percentile l_income k_income net_wealth
+
+. 
+. // Transform percentile into numeric value
+. encode percentile, gen(percentiles)
+
+. label define percs 1 "p0p50" 2 "p90p100"
+
+. label values percentiles percs
+
+. 
+. // Substitute the former percentile for the new one, add label and notes
+. drop percentile
+
+. rename percentiles percentile
+
+. label variable percentile "Income share percentile within the nation"
+
+. note percentile : "p0p50 = Bottom half of the income share of the nation"
+
+. note percentile : "p90p100 = Top 10% of the income share of the nation"
+
+. 
+. // Re-order
+. order country year percentile l_income k_income net_wealth
+
+. 
+. // More notes
+. note l_income : "Values are share of income by percentage points (therefore .2000 = 20%)"
+
+. note k_income : "Values are share of income by percentage points (therefore .2000 = 20%)"
+
+. note net_wealth : "Values are share of wealth by percentage points (therefore .2000 = 20%)"
+
+. 
+. // Format variables
+. format %8.0g l_income
+
+. format %8.0g k_income
+
+. format %8.0g net_wealth
+
+. 
+. // Compress the data
+. compress
+  variable percentile was long now byte
+  (420 bytes saved)
+
+. 
+. // Save to source directory
+. save "0trabWID\2data\5_USFR_income_wealth", replace
+(note: file 0trabWID\2data\5_USFR_income_wealth.dta not found)
+file 0trabWID\2data\5_USFR_income_wealth.dta saved
+
+. 
+. // Describe data
+. des
+
+Contains data from 0trabWID\2data\5_USFR_income_wealth.dta
+  obs:           140                          
+ vars:             6                          4 Nov 2020 13:19
+                                              (_dta has notes)
+-------------------------------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------------------------------
+country         int     %8.0g      country_num
+                                            * Country of observation
+year            int     %8.0g                 Year of observation
+percentile      byte    %8.0g      percs    * Income share percentile within the nation
+l_income        double  %8.0g               * Pre-tax labor income
+k_income        double  %8.0g               * Pre-tax capital income
+net_wealth      double  %8.0g               * Net personal wealth
+                                            * indicated variables have notes
+-------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: 
+
+. 
+. // Close the log
+. log close
+      name:  <unnamed>
+       log:  C:\Users\Usuario\Documents\0trabWID\4logs\5_USFR_income_wealth.log
+  log type:  text
+ closed on:   4 Nov 2020, 13:19:11
+-------------------------------------------------------------------------------------------------------------------------------------

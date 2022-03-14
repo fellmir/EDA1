@@ -1,0 +1,233 @@
+-------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Usuario\Documents\0trabWID\4logs\7_var_description.log
+  log type:  text
+ opened on:   4 Nov 2020, 13:54:09
+
+. use "0trabWID\2data\5_USFR_income_wealth", clear
+
+. summarize
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     country |        140         545    296.0592        250        840
+        year |        140        1997    10.13577       1980       2014
+  percentile |        140         1.5    .5017953          1          2
+    l_income |        140      .25682    .0734249      .1375      .4047
+    k_income |        140    .3500707    .3371299     -.0467      .7548
+-------------+---------------------------------------------------------
+  net_wealth |        140    .3198171    .2824432     -.0158      .7389
+
+. describe
+
+Contains data from 0trabWID\2data\5_USFR_income_wealth.dta
+  obs:           140                          
+ vars:             6                          4 Nov 2020 13:19
+                                              (_dta has notes)
+-------------------------------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------------------------------
+country         int     %8.0g      country_num
+                                            * Country of observation
+year            int     %8.0g                 Year of observation
+percentile      byte    %8.0g      percs    * Income share percentile within the nation
+l_income        double  %8.0g               * Pre-tax labor income
+k_income        double  %8.0g               * Pre-tax capital income
+net_wealth      double  %8.0g               * Net personal wealth
+                                            * indicated variables have notes
+-------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: 
+
+. codebook, compact
+
+Variable    Obs Unique      Mean     Min    Max  Label
+-------------------------------------------------------------------------------------------------------------------------------------
+country     140      2       545     250    840  Country of observation
+year        140     35      1997    1980   2014  Year of observation
+percentile  140      2       1.5       1      2  Income share percentile within the nation
+l_income    140    135    .25682   .1375  .4047  Pre-tax labor income
+k_income    140    136  .3500707  -.0467  .7548  Pre-tax capital income
+net_wealth  140    136  .3198171  -.0158  .7389  Net personal wealth
+-------------------------------------------------------------------------------------------------------------------------------------
+
+. codebook
+
+-------------------------------------------------------------------------------------------------------------------------------------
+country                                                                                                        Country of observation
+-------------------------------------------------------------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+                 label:  country_num
+
+                 range:  [250,840]                    units:  10
+         unique values:  2                        missing .:  0/140
+
+            tabulation:  Freq.   Numeric  Label
+                            70       250  250. FR
+                            70       840  840. US
+
+-------------------------------------------------------------------------------------------------------------------------------------
+year                                                                                                              Year of observation
+-------------------------------------------------------------------------------------------------------------------------------------
+
+                  type:  numeric (int)
+
+                 range:  [1980,2014]                  units:  1
+         unique values:  35                       missing .:  0/140
+
+                  mean:      1997
+              std. dev:   10.1358
+
+           percentiles:        10%       25%       50%       75%       90%
+                              1983      1988      1997      2006      2011
+
+-------------------------------------------------------------------------------------------------------------------------------------
+percentile                                                                                  Income share percentile within the nation
+-------------------------------------------------------------------------------------------------------------------------------------
+
+                  type:  numeric (byte)
+                 label:  percs
+
+                 range:  [1,2]                        units:  1
+         unique values:  2                        missing .:  0/140
+
+            tabulation:  Freq.   Numeric  Label
+                            70         1  p0p50
+                            70         2  p90p100
+
+-------------------------------------------------------------------------------------------------------------------------------------
+l_income                                                                                                         Pre-tax labor income
+-------------------------------------------------------------------------------------------------------------------------------------
+
+                  type:  numeric (double)
+
+                 range:  [.1375,.4047]                units:  .0001
+         unique values:  135                      missing .:  0/140
+
+                  mean:    .25682
+              std. dev:   .073425
+
+           percentiles:        10%       25%       50%       75%       90%
+                              .155     .2117     .2547     .2843    .37685
+
+-------------------------------------------------------------------------------------------------------------------------------------
+k_income                                                                                                       Pre-tax capital income
+-------------------------------------------------------------------------------------------------------------------------------------
+
+                  type:  numeric (double)
+
+                 range:  [-.0467,.7548]               units:  .0001
+         unique values:  136                      missing .:  0/140
+
+                  mean:   .350071
+              std. dev:    .33713
+
+           percentiles:        10%       25%       50%       75%       90%
+                            -.0326     .0253     .3322     .6958     .7326
+
+-------------------------------------------------------------------------------------------------------------------------------------
+net_wealth                                                                                                        Net personal wealth
+-------------------------------------------------------------------------------------------------------------------------------------
+
+                  type:  numeric (double)
+
+                 range:  [-.0158,.7389]               units:  .0001
+         unique values:  136                      missing .:  0/140
+
+                  mean:   .319817
+              std. dev:   .282443
+
+           percentiles:        10%       25%       50%       75%       90%
+                             .0123    .04055    .29815     .5869     .6665
+
+. inspect
+
+country:  Country of observation                Number of Observations
+--------------------------------       ---------------------------------------
+                                             Total      Integers   Nonintegers
+|  #   #                     Negative            -             -             -
+|  #   #                     Zero                -             -             -
+|  #   #                     Positive          140           140             -
+|  #   #                               -----------   -----------   -----------
+|  #   #                     Total             140           140             -
+|  #   #                     Missing             -
++----------------------                -----------
+250                 840                        140
+   (2 unique values)
+
+      country is labeled and all values are documented in the label.
+
+year:  Year of observation                      Number of Observations
+--------------------------             ---------------------------------------
+                                             Total      Integers   Nonintegers
+|  #   #   #   #   #         Negative            -             -             -
+|  #   #   #   #   #         Zero                -             -             -
+|  #   #   #   #   #         Positive          140           140             -
+|  #   #   #   #   #                   -----------   -----------   -----------
+|  #   #   #   #   #         Total             140           140             -
+|  #   #   #   #   #         Missing             -
++----------------------                -----------
+1980               2014                        140
+  (35 unique values)
+
+percentile:  Income share percentile wit        Number of Observations
+-------------------------------------------------------------------------------
+                                             Total      Integers   Nonintegers
+|  #   #                     Negative            -             -             -
+|  #   #                     Zero                -             -             -
+|  #   #                     Positive          140           140             -
+|  #   #                               -----------   -----------   -----------
+|  #   #                     Total             140           140             -
+|  #   #                     Missing             -
++----------------------                -----------
+1                     2                        140
+   (2 unique values)
+
+      percentile is labeled and all values are documented in the label.
+
+l_income:  Pre-tax labor income                 Number of Observations
+-------------------------------        ---------------------------------------
+                                             Total      Integers   Nonintegers
+|      #                     Negative            -             -             -
+|  #   #   #                 Zero                -             -             -
+|  #   #   #                 Positive          140             -           140
+|  #   #   #       #                   -----------   -----------   -----------
+|  #   #   #   #   #         Total             140             -           140
+|  #   #   #   #   #         Missing             -
++----------------------                -----------
+.1375             .4047                        140
+(More than 99 unique values)
+
+k_income:  Pre-tax capital income               Number of Observations
+---------------------------------      ---------------------------------------
+                                             Total      Integers   Nonintegers
+|  #                         Negative           33             -            33
+|  #               #         Zero                -             -             -
+|  #               #         Positive          107             -           107
+|  #               #                   -----------   -----------   -----------
+|  #               #         Total             140             -           140
+|  #   .   .   .   #         Missing             -
++----------------------                -----------
+-.0467            .7548                        140
+(More than 99 unique values)
+
+net_wealth:  Net personal wealth                Number of Observations
+--------------------------------       ---------------------------------------
+                                             Total      Integers   Nonintegers
+|  #                         Negative            6             -             6
+|  #                         Zero                -             -             -
+|  #                         Positive          134             -           134
+|  #           #   #                   -----------   -----------   -----------
+|  #           #   #         Total             140             -           140
+|  #   .   .   #   #         Missing             -
++----------------------                -----------
+-.0158            .7389                        140
+(More than 99 unique values)
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\Usuario\Documents\0trabWID\4logs\7_var_description.log
+  log type:  text
+ closed on:   4 Nov 2020, 13:58:47
+-------------------------------------------------------------------------------------------------------------------------------------

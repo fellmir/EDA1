@@ -1,0 +1,463 @@
+-------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Usuario\Documents\0trabWID\4logs\6_debug.log
+  log type:  text
+ opened on:   4 Nov 2020, 13:43:56
+
+. use "0trabWID\2data\5_USFR_income_wealth", clear
+
+. des
+
+Contains data from 0trabWID\2data\5_USFR_income_wealth.dta
+  obs:           140                          
+ vars:             6                          4 Nov 2020 13:19
+                                              (_dta has notes)
+-------------------------------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------------------------------
+country         int     %8.0g      country_num
+                                            * Country of observation
+year            int     %8.0g                 Year of observation
+percentile      byte    %8.0g      percs    * Income share percentile within the nation
+l_income        double  %8.0g               * Pre-tax labor income
+k_income        double  %8.0g               * Pre-tax capital income
+net_wealth      double  %8.0g               * Net personal wealth
+                                            * indicated variables have notes
+-------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: 
+
+. sum
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     country |        140         545    296.0592        250        840
+        year |        140        1997    10.13577       1980       2014
+  percentile |        140         1.5    .5017953          1          2
+    l_income |        140      .25682    .0734249      .1375      .4047
+    k_income |        140    .3500707    .3371299     -.0467      .7548
+-------------+---------------------------------------------------------
+  net_wealth |        140    .3198171    .2824432     -.0158      .7389
+
+. codebook, problems
+
+no potential problems in dataset 0trabWID\2data\5_USFR_income_wealth.dta
+
+. duplicates report
+
+Duplicates in terms of all variables
+
+--------------------------------------
+   copies | observations       surplus
+----------+---------------------------
+        1 |          140             0
+--------------------------------------
+
+. net install panelstat, from("https://github.com/BPLIM/Tools/raw/master/ados/General/panelstat/")
+checking panelstat consistency and verifying not already installed...
+all files already exist and are up to date.
+
+. panelstat percentile year, all force1
+
+You may want to install user-written GTOOLS for faster results
+
+Warning: ignoring 70 observation(s) to ensure unique values per percentile x year pair
+
+*****************************************************
+Analyzing 0trabWID\2data\5_USFR_income_wealth.dta
+*****************************************************
+
+*****************************************************
+Basic descriptives
+*****************************************************
+There are 70 time x individuals observations
+There are 2 unique individuals
+Time values range from 1980 to 2014
+Maximum time range is 35
+The average number of periods per individual is 35.00
+The level of completeness is 100.00% (100% is a fully balanced panel)
+Average number of gaps per individual is 0.00
+Average gap size is    .
+Largest gap is .
+*****************************************************
+
+*****************************************************
+Distribution of number of observations per individual
+*****************************************************
+
+ Observ per |
+ individual |      Freq.     Percent        Cum.
+------------+-----------------------------------
+         35 |          2      100.00      100.00
+------------+-----------------------------------
+      Total |          2      100.00
+
+*****************************************************
+Number of individuals per time unit
+*****************************************************
+
+       Time |      Freq.     Percent        Cum.
+------------+-----------------------------------
+       1980 |          2        2.86        2.86
+       1981 |          2        2.86        5.71
+       1982 |          2        2.86        8.57
+       1983 |          2        2.86       11.43
+       1984 |          2        2.86       14.29
+       1985 |          2        2.86       17.14
+       1986 |          2        2.86       20.00
+       1987 |          2        2.86       22.86
+       1988 |          2        2.86       25.71
+       1989 |          2        2.86       28.57
+       1990 |          2        2.86       31.43
+       1991 |          2        2.86       34.29
+       1992 |          2        2.86       37.14
+       1993 |          2        2.86       40.00
+       1994 |          2        2.86       42.86
+       1995 |          2        2.86       45.71
+       1996 |          2        2.86       48.57
+       1997 |          2        2.86       51.43
+       1998 |          2        2.86       54.29
+       1999 |          2        2.86       57.14
+       2000 |          2        2.86       60.00
+       2001 |          2        2.86       62.86
+       2002 |          2        2.86       65.71
+       2003 |          2        2.86       68.57
+       2004 |          2        2.86       71.43
+       2005 |          2        2.86       74.29
+       2006 |          2        2.86       77.14
+       2007 |          2        2.86       80.00
+       2008 |          2        2.86       82.86
+       2009 |          2        2.86       85.71
+       2010 |          2        2.86       88.57
+       2011 |          2        2.86       91.43
+       2012 |          2        2.86       94.29
+       2013 |          2        2.86       97.14
+       2014 |          2        2.86      100.00
+------------+-----------------------------------
+      Total |         70      100.00
+
+*****************************************************
+Distribution of the size of the time gaps
+*****************************************************
+
+There are no time gaps
+
+*****************************************************
+Distribution of complete runs by size
+*****************************************************
+
+  Length of |
+        run |      Freq.     Percent        Cum.
+------------+-----------------------------------
+         35 |          2      100.00      100.00
+------------+-----------------------------------
+      Total |          2      100.00
+
+*****************************************************
+Time changes - incumbents, entrants and exits
+*****************************************************
+
+  +-------------------------------------------------------------------------+
+  | time   total   inc1   entry   first   reent   inc2   exit   last   reex |
+  |-------------------------------------------------------------------------|
+  | 1980       2      0       2       2       0      2      0      0      0 |
+  | 1981       2      2       0       0       0      2      0      0      0 |
+  | 1982       2      2       0       0       0      2      0      0      0 |
+  | 1983       2      2       0       0       0      2      0      0      0 |
+  | 1984       2      2       0       0       0      2      0      0      0 |
+  |-------------------------------------------------------------------------|
+  | 1985       2      2       0       0       0      2      0      0      0 |
+  | 1986       2      2       0       0       0      2      0      0      0 |
+  | 1987       2      2       0       0       0      2      0      0      0 |
+  | 1988       2      2       0       0       0      2      0      0      0 |
+  | 1989       2      2       0       0       0      2      0      0      0 |
+  |-------------------------------------------------------------------------|
+  | 1990       2      2       0       0       0      2      0      0      0 |
+  | 1991       2      2       0       0       0      2      0      0      0 |
+  | 1992       2      2       0       0       0      2      0      0      0 |
+  | 1993       2      2       0       0       0      2      0      0      0 |
+  | 1994       2      2       0       0       0      2      0      0      0 |
+  |-------------------------------------------------------------------------|
+  | 1995       2      2       0       0       0      2      0      0      0 |
+  | 1996       2      2       0       0       0      2      0      0      0 |
+  | 1997       2      2       0       0       0      2      0      0      0 |
+  | 1998       2      2       0       0       0      2      0      0      0 |
+  | 1999       2      2       0       0       0      2      0      0      0 |
+  |-------------------------------------------------------------------------|
+  | 2000       2      2       0       0       0      2      0      0      0 |
+  | 2001       2      2       0       0       0      2      0      0      0 |
+  | 2002       2      2       0       0       0      2      0      0      0 |
+  | 2003       2      2       0       0       0      2      0      0      0 |
+  | 2004       2      2       0       0       0      2      0      0      0 |
+  |-------------------------------------------------------------------------|
+  | 2005       2      2       0       0       0      2      0      0      0 |
+  | 2006       2      2       0       0       0      2      0      0      0 |
+  | 2007       2      2       0       0       0      2      0      0      0 |
+  | 2008       2      2       0       0       0      2      0      0      0 |
+  | 2009       2      2       0       0       0      2      0      0      0 |
+  |-------------------------------------------------------------------------|
+  | 2010       2      2       0       0       0      2      0      0      0 |
+  | 2011       2      2       0       0       0      2      0      0      0 |
+  | 2012       2      2       0       0       0      2      0      0      0 |
+  | 2013       2      2       0       0       0      2      0      0      0 |
+  | 2014       2      2       0       0       0      0      2      2      0 |
+  +-------------------------------------------------------------------------+
+time - time period
+total - total number of individuals at time t 
+inc1 - number of individuals at t that are also present at t-1 
+entry - number of individuals at t that are not present at t-1 
+first - number of individuals at t who show up for the first time at t
+reent - number of individuals at t that are reentering at time t
+inc2 - number of individuals at t that are also present at t+1 
+exit - number of individuals at t that are not present at t+1 
+last - number of individuals at t that are not present at any future time
+reexit - number of individuals at t not present at t+1 that appear in later times
+
+the following identities hold:
+total[t+1]=total[t]-exit[t]+entry[t+1]
+inc1=total-entry)
+entry=first+reent
+inc2=inc1[t+1]
+exit=last+reexit
+
+*****************************************************
+Top 1 patterns in the data
+*****************************************************
+
+     +-------------------------------------------------+
+     |                             Pattern   Frequency |
+     |-------------------------------------------------|
+  1. | 11111111111111111111111111111111111           2 |
+     +-------------------------------------------------+
+
+Note: 1 if observation is in the dataset; 0 otherwise
+
+Distribution of panel units by type of observation for all variables
+
+
+  +-----------------------------------------------------------------------------------------------------------------+
+  |   variable   s_nonmiss   s_missing   allmissing    onevalue   timeinv_nm   timeinv_wm   timevar_nm   timevar_wm |
+  |-----------------------------------------------------------------------------------------------------------------|
+  |    country           0           0            0           0            0            0            2            0 |
+  |   k_income           0           0            0           0            0            0            2            0 |
+  |   l_income           0           0            0           0            0            0            2            0 |
+  | net_wealth           0           0            0           0            0            0            2            0 |
+  | percentile           0           0            0           0            2            0            0            0 |
+  |-----------------------------------------------------------------------------------------------------------------|
+  |       year           0           0            0           0            0            0            2            0 |
+  +-----------------------------------------------------------------------------------------------------------------+
+string variables have an _st tag suffix
+s_nonmiss - singleton observation with nonmissing value of the variable
+s_missing - singleton observation with missing value for the variable
+allmissing - non-singleton with all missing values of the variable
+onevalue - non-singleton with only one valid value of the variable
+timeinv_nm - non-singleton with time-invariant values and nonmissing values for the variable
+timeinv_wm - non-singleton with time-invariant values and missing values for the variable
+timevar_nm - non-singleton with time-variant values and nonmissing values for the variable
+timevar_wm - non-singleton with time-variant values and missing values for the variable
+
+. panelstat country year, all force1
+
+You may want to install user-written GTOOLS for faster results
+
+Warning: ignoring 70 observation(s) to ensure unique values per country x year pair
+
+*****************************************************
+Analyzing 0trabWID\2data\5_USFR_income_wealth.dta
+*****************************************************
+
+*****************************************************
+Basic descriptives
+*****************************************************
+There are 70 time x individuals observations
+There are 2 unique individuals
+Time values range from 1980 to 2014
+Maximum time range is 35
+The average number of periods per individual is 35.00
+The level of completeness is 100.00% (100% is a fully balanced panel)
+Average number of gaps per individual is 0.00
+Average gap size is    .
+Largest gap is .
+*****************************************************
+
+*****************************************************
+Distribution of number of observations per individual
+*****************************************************
+
+ Observ per |
+ individual |      Freq.     Percent        Cum.
+------------+-----------------------------------
+         35 |          2      100.00      100.00
+------------+-----------------------------------
+      Total |          2      100.00
+
+*****************************************************
+Number of individuals per time unit
+*****************************************************
+
+       Time |      Freq.     Percent        Cum.
+------------+-----------------------------------
+       1980 |          2        2.86        2.86
+       1981 |          2        2.86        5.71
+       1982 |          2        2.86        8.57
+       1983 |          2        2.86       11.43
+       1984 |          2        2.86       14.29
+       1985 |          2        2.86       17.14
+       1986 |          2        2.86       20.00
+       1987 |          2        2.86       22.86
+       1988 |          2        2.86       25.71
+       1989 |          2        2.86       28.57
+       1990 |          2        2.86       31.43
+       1991 |          2        2.86       34.29
+       1992 |          2        2.86       37.14
+       1993 |          2        2.86       40.00
+       1994 |          2        2.86       42.86
+       1995 |          2        2.86       45.71
+       1996 |          2        2.86       48.57
+       1997 |          2        2.86       51.43
+       1998 |          2        2.86       54.29
+       1999 |          2        2.86       57.14
+       2000 |          2        2.86       60.00
+       2001 |          2        2.86       62.86
+       2002 |          2        2.86       65.71
+       2003 |          2        2.86       68.57
+       2004 |          2        2.86       71.43
+       2005 |          2        2.86       74.29
+       2006 |          2        2.86       77.14
+       2007 |          2        2.86       80.00
+       2008 |          2        2.86       82.86
+       2009 |          2        2.86       85.71
+       2010 |          2        2.86       88.57
+       2011 |          2        2.86       91.43
+       2012 |          2        2.86       94.29
+       2013 |          2        2.86       97.14
+       2014 |          2        2.86      100.00
+------------+-----------------------------------
+      Total |         70      100.00
+
+*****************************************************
+Distribution of the size of the time gaps
+*****************************************************
+
+There are no time gaps
+
+*****************************************************
+Distribution of complete runs by size
+*****************************************************
+
+  Length of |
+        run |      Freq.     Percent        Cum.
+------------+-----------------------------------
+         35 |          2      100.00      100.00
+------------+-----------------------------------
+      Total |          2      100.00
+
+*****************************************************
+Time changes - incumbents, entrants and exits
+*****************************************************
+
+  +-------------------------------------------------------------------------+
+  | time   total   inc1   entry   first   reent   inc2   exit   last   reex |
+  |-------------------------------------------------------------------------|
+  | 1980       2      0       2       2       0      2      0      0      0 |
+  | 1981       2      2       0       0       0      2      0      0      0 |
+  | 1982       2      2       0       0       0      2      0      0      0 |
+  | 1983       2      2       0       0       0      2      0      0      0 |
+  | 1984       2      2       0       0       0      2      0      0      0 |
+  |-------------------------------------------------------------------------|
+  | 1985       2      2       0       0       0      2      0      0      0 |
+  | 1986       2      2       0       0       0      2      0      0      0 |
+  | 1987       2      2       0       0       0      2      0      0      0 |
+  | 1988       2      2       0       0       0      2      0      0      0 |
+  | 1989       2      2       0       0       0      2      0      0      0 |
+  |-------------------------------------------------------------------------|
+  | 1990       2      2       0       0       0      2      0      0      0 |
+  | 1991       2      2       0       0       0      2      0      0      0 |
+  | 1992       2      2       0       0       0      2      0      0      0 |
+  | 1993       2      2       0       0       0      2      0      0      0 |
+  | 1994       2      2       0       0       0      2      0      0      0 |
+  |-------------------------------------------------------------------------|
+  | 1995       2      2       0       0       0      2      0      0      0 |
+  | 1996       2      2       0       0       0      2      0      0      0 |
+  | 1997       2      2       0       0       0      2      0      0      0 |
+  | 1998       2      2       0       0       0      2      0      0      0 |
+  | 1999       2      2       0       0       0      2      0      0      0 |
+  |-------------------------------------------------------------------------|
+  | 2000       2      2       0       0       0      2      0      0      0 |
+  | 2001       2      2       0       0       0      2      0      0      0 |
+  | 2002       2      2       0       0       0      2      0      0      0 |
+  | 2003       2      2       0       0       0      2      0      0      0 |
+  | 2004       2      2       0       0       0      2      0      0      0 |
+  |-------------------------------------------------------------------------|
+  | 2005       2      2       0       0       0      2      0      0      0 |
+  | 2006       2      2       0       0       0      2      0      0      0 |
+  | 2007       2      2       0       0       0      2      0      0      0 |
+  | 2008       2      2       0       0       0      2      0      0      0 |
+  | 2009       2      2       0       0       0      2      0      0      0 |
+  |-------------------------------------------------------------------------|
+  | 2010       2      2       0       0       0      2      0      0      0 |
+  | 2011       2      2       0       0       0      2      0      0      0 |
+  | 2012       2      2       0       0       0      2      0      0      0 |
+  | 2013       2      2       0       0       0      2      0      0      0 |
+  | 2014       2      2       0       0       0      0      2      2      0 |
+  +-------------------------------------------------------------------------+
+time - time period
+total - total number of individuals at time t 
+inc1 - number of individuals at t that are also present at t-1 
+entry - number of individuals at t that are not present at t-1 
+first - number of individuals at t who show up for the first time at t
+reent - number of individuals at t that are reentering at time t
+inc2 - number of individuals at t that are also present at t+1 
+exit - number of individuals at t that are not present at t+1 
+last - number of individuals at t that are not present at any future time
+reexit - number of individuals at t not present at t+1 that appear in later times
+
+the following identities hold:
+total[t+1]=total[t]-exit[t]+entry[t+1]
+inc1=total-entry)
+entry=first+reent
+inc2=inc1[t+1]
+exit=last+reexit
+
+*****************************************************
+Top 1 patterns in the data
+*****************************************************
+
+     +-------------------------------------------------+
+     |                             Pattern   Frequency |
+     |-------------------------------------------------|
+  1. | 11111111111111111111111111111111111           2 |
+     +-------------------------------------------------+
+
+Note: 1 if observation is in the dataset; 0 otherwise
+
+Distribution of panel units by type of observation for all variables
+
+
+  +-----------------------------------------------------------------------------------------------------------------+
+  |   variable   s_nonmiss   s_missing   allmissing    onevalue   timeinv_nm   timeinv_wm   timevar_nm   timevar_wm |
+  |-----------------------------------------------------------------------------------------------------------------|
+  |    country           0           0            0           0            2            0            0            0 |
+  |   k_income           0           0            0           0            0            0            2            0 |
+  |   l_income           0           0            0           0            0            0            2            0 |
+  | net_wealth           0           0            0           0            0            0            2            0 |
+  | percentile           0           0            0           0            2            0            0            0 |
+  |-----------------------------------------------------------------------------------------------------------------|
+  |       year           0           0            0           0            0            0            2            0 |
+  +-----------------------------------------------------------------------------------------------------------------+
+string variables have an _st tag suffix
+s_nonmiss - singleton observation with nonmissing value of the variable
+s_missing - singleton observation with missing value for the variable
+allmissing - non-singleton with all missing values of the variable
+onevalue - non-singleton with only one valid value of the variable
+timeinv_nm - non-singleton with time-invariant values and nonmissing values for the variable
+timeinv_wm - non-singleton with time-invariant values and missing values for the variable
+timevar_nm - non-singleton with time-variant values and nonmissing values for the variable
+timevar_wm - non-singleton with time-variant values and missing values for the variable
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\Usuario\Documents\0trabWID\4logs\6_debug.log
+  log type:  text
+ closed on:   4 Nov 2020, 13:45:31
+-------------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,531 @@
+-------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Usuario\Documents\0trabWID\4logs\4_test.log
+  log type:  text
+ opened on:   3 Nov 2020, 17:49:13
+
+. use "2data\2_USFR_income_wealth", clear
+
+. drop age pop countryname shortname simpledes technicaldes shorttype longtype shortpop longpop shortage longage unit unitlabel sourc
+> e method data_quality imputation
+
+. br
+
+. egen id = group(country year percentile)
+
+. reshape wide value, i(id) j(variable)
+variable variable is string; specify string option
+r(109);
+
+. reshape wide value, i(id) j(variable) string
+(note: j = shweal992j spkkin992j spllin992j)
+
+Data                               long   ->   wide
+-----------------------------------------------------------------------------
+Number of obs.                      420   ->     140
+Number of variables                   6   ->       7
+j variable (3 values)          variable   ->   (dropped)
+xij variables:
+                                  value   ->   valueshweal992j valuespkkin992j valuespllin992j
+-----------------------------------------------------------------------------
+
+. des
+
+Contains data
+  obs:           140                          
+ vars:             7                          
+-------------------------------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------------------------------
+id              float   %9.0g                 group(country year percentile)
+valueshweal992j double  %10.0g                shweal992j value
+valuespkkin992j double  %10.0g                spkkin992j value
+valuespllin992j double  %10.0g                spllin992j value
+country         str2    %9s                   
+percentile      str7    %9s                   
+year            int     %8.0g                 
+-------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: id
+     Note: Dataset has changed since last saved.
+
+. order country year percentile valuespllin992j valuespkkin992j valueshweal992j id
+
+. des
+
+Contains data
+  obs:           140                          
+ vars:             7                          
+-------------------------------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------------------------------
+country         str2    %9s                   
+year            int     %8.0g                 
+percentile      str7    %9s                   
+valuespllin992j double  %10.0g                spllin992j value
+valuespkkin992j double  %10.0g                spkkin992j value
+valueshweal992j double  %10.0g                shweal992j value
+id              float   %9.0g                 group(country year percentile)
+-------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: id
+     Note: Dataset has changed since last saved.
+
+. label variable year "Year of observation"
+
+. label variable percentile "Income share percentile within the nation"
+
+. note percentile: "p0p50 = bottom 50% share of the country"
+
+. note percentile: "p90p100 = top 10% share of the country"
+
+. rename valuespllin992j l_income
+
+. rename valuespkkin992j k_income
+
+. rename valueshweal992j net_wealth
+
+. label variable l_income "Pre-tax labor income"
+
+. label variable k_income "Pre-tax capital income"
+
+. label variable net_wealth "Net personal wealth"
+
+. note l_income: "Net personal wealth = Personal non-financial assets + Personal financial assets - Personal debt"
+
+. h note
+
+. note drop l_income
+  (1 note dropped)
+
+. nome l_income: "Pre-tax labor income = Compensation of employees + Labor component of net mixed income + Pensions and social insura
+> nce income (labor share)"
+command nome is unrecognized
+r(199);
+
+. note l_income: "Pre-tax labor income = Compensation of employees + Labor component of net mixed income + Pensions and social insura
+> nce income (labor share)"
+
+. note k_income: "Pre-tax capital income = Housing asset income + Equity asset income + Interest income + Pensions and social insuran
+> ce income (capital share) - Interest payments"
+
+. note net_wealth: "Net personal wealth = Personal non-financial assets + Personal financial assets - Personal debt"
+
+. des
+
+Contains data
+  obs:           140                          
+ vars:             7                          
+-------------------------------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------------------------------
+country         str2    %9s                   
+year            int     %8.0g                 Year of observation
+percentile      str7    %9s                 * Income share percentile within the nation
+l_income        double  %10.0g              * Pre-tax labor income
+k_income        double  %10.0g              * Pre-tax capital income
+net_wealth      double  %10.0g              * Net personal wealth
+id              float   %9.0g                 group(country year percentile)
+                                            * indicated variables have notes
+-------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: id
+     Note: Dataset has changed since last saved.
+
+. notes
+
+percentile:
+  1.  "p0p50 = bottom 50% share of the country"
+  2.  "p90p100 = top 10% share of the country"
+
+l_income:
+  1.  "Pre-tax labor income = Compensation of employees + Labor component of net mixed income + Pensions and social insurance income
+      (labor share)"
+
+k_income:
+  1.  "Pre-tax capital income = Housing asset income + Equity asset income + Interest income + Pensions and social insurance income
+      (capital share) - Interest payments"
+
+net_wealth:
+  1.  "Net personal wealth = Personal non-financial assets + Personal financial assets - Personal debt"
+
+. notes: The base unit is the individual (rather than the household) but resources are split equally within couples.
+
+. notes
+
+_dta:
+  1.  The base unit is the individual (rather than the household) but resources are split equally within couples.
+
+percentile:
+  1.  "p0p50 = bottom 50% share of the country"
+  2.  "p90p100 = top 10% share of the country"
+
+l_income:
+  1.  "Pre-tax labor income = Compensation of employees + Labor component of net mixed income + Pensions and social insurance income
+      (labor share)"
+
+k_income:
+  1.  "Pre-tax capital income = Housing asset income + Equity asset income + Interest income + Pensions and social insurance income
+      (capital share) - Interest payments"
+
+net_wealth:
+  1.  "Net personal wealth = Personal non-financial assets + Personal financial assets - Personal debt"
+
+. notes: "The population is comprised of individuals over age 20."
+
+. note replace _dta in 1 : "The base unit is the individual (rather than the household) but resources are split equally within couple
+> s."
+  (note 1 for _dta replaced)
+
+. notes
+
+_dta:
+  1.  "The base unit is the individual (rather than the household) but resources are split equally within couples."
+  2.  "The population is comprised of individuals over age 20."
+
+percentile:
+  1.  "p0p50 = bottom 50% share of the country"
+  2.  "p90p100 = top 10% share of the country"
+
+l_income:
+  1.  "Pre-tax labor income = Compensation of employees + Labor component of net mixed income + Pensions and social insurance income
+      (labor share)"
+
+k_income:
+  1.  "Pre-tax capital income = Housing asset income + Equity asset income + Interest income + Pensions and social insurance income
+      (capital share) - Interest payments"
+
+net_wealth:
+  1.  "Net personal wealth = Personal non-financial assets + Personal financial assets - Personal debt"
+
+. des
+
+Contains data
+  obs:           140                          
+ vars:             7                          
+                                              (_dta has notes)
+-------------------------------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------------------------------
+country         str2    %9s                   
+year            int     %8.0g                 Year of observation
+percentile      str7    %9s                 * Income share percentile within the nation
+l_income        double  %10.0g              * Pre-tax labor income
+k_income        double  %10.0g              * Pre-tax capital income
+net_wealth      double  %10.0g              * Net personal wealth
+id              float   %9.0g                 group(country year percentile)
+                                            * indicated variables have notes
+-------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: id
+     Note: Dataset has changed since last saved.
+
+. save "2data\1auxiliarydata\20200311_1803_progress", replace
+(note: file 2data\1auxiliarydata\20200311_1803_progress.dta not found)
+file 2data\1auxiliarydata\20200311_1803_progress.dta saved
+
+. preserve
+
+. 
+. import delimited using "https://gist.githubusercontent.com/tadast/8827699/raw/3cd639fa34eec5067080a61c69e3ae25e3076abb/countries_co
+> des_and_coordinates.csv", varname(1) stripquotes(yes) clear
+(6 vars, 256 obs)
+
+. 
+. rename country geo
+
+. 
+. gen country=strtrim(alpha2code)
+
+. 
+. rename numericcode country_num
+
+. 
+. keep country country_num
+
+. 
+. duplicates drop
+
+Duplicates in terms of all variables
+
+(12 observations deleted)
+
+. 
+. save "2data\1auxiliarydata\country_codes.dta", replace
+(note: file 2data\1auxiliarydata\country_codes.dta not found)
+file 2data\1auxiliarydata\country_codes.dta saved
+
+. 
+. restore
+
+. merge m:1 country using "2data\1auxiliarydata\country_codes.dta", keepusing(country_num)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           242
+        from master                         0  (_merge==1)
+        from using                        242  (_merge==2)
+
+    matched                               140  (_merge==3)
+    -----------------------------------------
+
+. drop if _m==2
+(242 observations deleted)
+
+. br´
+command br´ is unrecognized
+r(199);
+
+. br
+
+. labmask country_num, values(country)
+command labmask is unrecognized
+r(199);
+
+. h labmask
+
+. search labmask
+
+. ssc install labutil
+checking labutil consistency and verifying not already installed...
+all files already exist and are up to date.
+
+. labmask country_num, values(country)
+
+. br
+
+. numlabel country_num, add
+
+. br
+
+. drop country id _merge
+
+. rename country_num country
+
+. label variable country "Numeric code. Country"
+
+. label variable country "Country of observation"
+
+. note country: "Number = ISO 3166-1 numeric code"
+
+. order country year percentile l_income k_income net_wealth
+
+. des
+
+Contains data from 2data\1auxiliarydata\20200311_1803_progress.dta
+  obs:           140                          
+ vars:             6                          3 Nov 2020 18:04
+                                              (_dta has notes)
+-------------------------------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------------------------------
+country         int     %8.0g      country_num
+                                            * Country of observation
+year            int     %8.0g                 Year of observation
+percentile      str7    %9s                 * Income share percentile within the nation
+l_income        double  %10.0g              * Pre-tax labor income
+k_income        double  %10.0g              * Pre-tax capital income
+net_wealth      double  %10.0g              * Net personal wealth
+                                            * indicated variables have notes
+-------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: 
+     Note: Dataset has changed since last saved.
+
+. h label define
+
+. label define percs 0 "p0p50" 1 "p90p100"
+
+. label values percentile percs
+may not label strings
+r(181);
+
+. encode percentile, gen(percentiles)
+
+. label values percentiles percs
+
+. br
+
+. h label define
+
+. label values percentiles
+
+. br
+
+. label drop percs
+
+. label define percs 1 "p0p50" 2 "p90p100"
+
+. label values percentiles
+
+. br
+
+. label values percentiles percs
+
+. br
+
+. drop percentile
+
+. order country year percentiles l_income k_income net_wealth
+
+. rename percentiles percentile
+
+. br
+
+. des
+
+Contains data from 2data\1auxiliarydata\20200311_1803_progress.dta
+  obs:           140                          
+ vars:             6                          3 Nov 2020 18:04
+                                              (_dta has notes)
+-------------------------------------------------------------------------------------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable label
+-------------------------------------------------------------------------------------------------------------------------------------
+country         int     %8.0g      country_num
+                                            * Country of observation
+year            int     %8.0g                 Year of observation
+percentile      long    %8.0g      percs      Income share percentile within the nation
+l_income        double  %10.0g              * Pre-tax labor income
+k_income        double  %10.0g              * Pre-tax capital income
+net_wealth      double  %10.0g              * Net personal wealth
+                                            * indicated variables have notes
+-------------------------------------------------------------------------------------------------------------------------------------
+Sorted by: 
+     Note: Dataset has changed since last saved.
+
+. note percentile : "p0p50 = Bottom half of the income share of the nation"
+
+. note percentile : "p90p100 = Top 10% of the income share of the nation"
+
+. notes
+
+_dta:
+  1.  "The base unit is the individual (rather than the household) but resources are split equally within couples."
+  2.  "The population is comprised of individuals over age 20."
+
+country:
+  1.  "Number = ISO 3166-1 numeric code"
+
+percentile:
+  1.  "p0p50 = Bottom half of the income share of the nation"
+  2.  "p90p100 = Top 10% of the income share of the nation"
+
+l_income:
+  1.  "Pre-tax labor income = Compensation of employees + Labor component of net mixed income + Pensions and social insurance income
+      (labor share)"
+
+k_income:
+  1.  "Pre-tax capital income = Housing asset income + Equity asset income + Interest income + Pensions and social insurance income
+      (capital share) - Interest payments"
+
+net_wealth:
+  1.  "Net personal wealth = Personal non-financial assets + Personal financial assets - Personal debt"
+
+. save "2data\1auxiliarydata\20200311_1823_progress", replace
+(note: file 2data\1auxiliarydata\20200311_1823_progress.dta not found)
+file 2data\1auxiliarydata\20200311_1823_progress.dta saved
+
+. note: "Changed on `c(current_date)'"
+
+. notes
+
+_dta:
+  1.  "The base unit is the individual (rather than the household) but resources are split equally within couples."
+  2.  "The population is comprised of individuals over age 20."
+  3.  "Changed on 3 Nov 2020"
+
+country:
+  1.  "Number = ISO 3166-1 numeric code"
+
+percentile:
+  1.  "p0p50 = Bottom half of the income share of the nation"
+  2.  "p90p100 = Top 10% of the income share of the nation"
+
+l_income:
+  1.  "Pre-tax labor income = Compensation of employees + Labor component of net mixed income + Pensions and social insurance income
+      (labor share)"
+
+k_income:
+  1.  "Pre-tax capital income = Housing asset income + Equity asset income + Interest income + Pensions and social insurance income
+      (capital share) - Interest payments"
+
+net_wealth:
+  1.  "Net personal wealth = Personal non-financial assets + Personal financial assets - Personal debt"
+
+. save "2data\1auxiliarydata\20200311_1826_progress", replace
+(note: file 2data\1auxiliarydata\20200311_1826_progress.dta not found)
+file 2data\1auxiliarydata\20200311_1826_progress.dta saved
+
+. sort country year percentile
+
+. br
+
+. note l_income k_income : "Values are share of income by percentage points (therefore .2000 = 20%)"
+type mismatch
+r(109);
+
+. note l_income : "Values are share of income by percentage points (therefore .2000 = 20%)"
+
+. note k_income : "Values are share of income by percentage points (therefore .2000 = 20%)"
+
+. note net_wealth : "Values are share of wealth by percentage points (therefore .2000 = 20%)"
+
+. notes
+
+_dta:
+  1.  "The base unit is the individual (rather than the household) but resources are split equally within couples."
+  2.  "The population is comprised of individuals over age 20."
+  3.  "Changed on 3 Nov 2020"
+
+country:
+  1.  "Number = ISO 3166-1 numeric code"
+
+percentile:
+  1.  "p0p50 = Bottom half of the income share of the nation"
+  2.  "p90p100 = Top 10% of the income share of the nation"
+
+l_income:
+  1.  "Pre-tax labor income = Compensation of employees + Labor component of net mixed income + Pensions and social insurance income
+      (labor share)"
+  2.  "Values are share of income by percentage points (therefore .2000 = 20%)"
+
+k_income:
+  1.  "Pre-tax capital income = Housing asset income + Equity asset income + Interest income + Pensions and social insurance income
+      (capital share) - Interest payments"
+  2.  "Values are share of income by percentage points (therefore .2000 = 20%)"
+
+net_wealth:
+  1.  "Net personal wealth = Personal non-financial assets + Personal financial assets - Personal debt"
+  2.  "Values are share of wealth by percentage points (therefore .2000 = 20%)"
+
+. save "2data\1auxiliarydata\20200311_1835_progress", replace
+(note: file 2data\1auxiliarydata\20200311_1835_progress.dta not found)
+file 2data\1auxiliarydata\20200311_1835_progress.dta saved
+
+. varmanage
+
+. format %8.0g l_income
+
+. format %8.0g k_income
+
+. format %8.0g net_wealth
+
+. br
+
+. compress
+  variable percentile was long now byte
+  (420 bytes saved)
+
+. br
+
+. save "2data\1auxiliarydata\20200311_1837_progress", replace
+(note: file 2data\1auxiliarydata\20200311_1837_progress.dta not found)
+file 2data\1auxiliarydata\20200311_1837_progress.dta saved
+
+. log close
+      name:  <unnamed>
+       log:  C:\Users\Usuario\Documents\0trabWID\4logs\4_test.log
+  log type:  text
+ closed on:   3 Nov 2020, 18:37:58
+-------------------------------------------------------------------------------------------------------------------------------------
